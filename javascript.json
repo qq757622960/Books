@@ -1,0 +1,748 @@
+{
+    // Place your snippets for javascript here. Each snippet is defined under a snippet name and has a prefix, body and 
+    // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+    // same ids are connected.
+    // Example:
+    //=================== 编写可测试的 JavaScript(Book) ===================
+    "testable-lookup": {
+        "prefix": "testable-lookup",
+        "body": [
+            "var doSomeThing = function (a) {",
+            "\tvar lookup = { x: doX, y: doY }, def = doZ;",
+            "\tlookup[a] ? lookup[a]() : def();",
+            "};"
+        ],
+        "description": "if/then/else lookup 表"
+    },
+    //=================== DOM ===================
+    "dom-query": {
+        "prefix": "dom-query",
+        "body": [
+            "var el = document.querySelector();",
+        ],
+        "description": "查找节点"
+    },
+    "dom-query-all": {
+        "prefix": "dom-query-all",
+        "body": [
+            "var els = document.querySelectorAll();",
+        ],
+        "description": "查找所有节点"
+    },
+    "dom-addEvent": {
+        "prefix": "dom-addEvent",
+        "body": [
+            "$1.addEventListener('${2}', function(event) {$3}, false);"
+        ],
+        "description": "添加事件"
+    },
+    //=================== Object ===================
+    "object-assign": {
+        "prefix": "object-assign",
+        "body": [
+            "var obj = Object.assign(target, source);",
+        ],
+        "description": "合并对象"
+    },
+    //=================== System ===================
+    "Print to console1": {
+        "prefix": "log",
+        "body": [
+            "console.log($1);"
+        ],
+        "description": "Log output to console"
+    },
+    "Print to console dir": {
+        "prefix": "dir",
+        "body": [
+            "console.dir($1);"
+        ],
+        "description": "Log output to console dir"
+    },
+    //=================== 语法 ===================
+    "grammar-for": {
+        "prefix": "grammar-for",
+        "body": [
+            "for (初始化; 条件语句; 增长量) {}"
+        ],
+        "description": "for 循环"
+    },
+    // console
+    "Print to console2": {
+        "prefix": "log",
+        "body": [
+            "console.log('This is my dream');",
+        ],
+        "description": "Log output to console"
+    },
+    "comment": {
+        "prefix": "comment",
+        "body": [
+            "/* Moudle Xxx",
+            "----------------------------------------------------- */"
+        ],
+        "description": "注释"
+    },
+    "var-func": {
+        "prefix": "var-func",
+        "body": [
+            "var getNumber = function () {};"
+        ],
+        "description": "函数字面量"
+    },
+    // =================== 原生JavaScript ===================
+    "getScrollHeight_JS": {
+        "prefix": "getScrollHeight_JS",
+        "body": [
+            "// 获取滚动条的高度",
+            "function getScrollTop() {",
+            "\tvar scrollTop = 0;",
+            "\tif (document.documentElement && document.documentElement.scrollTop) {",
+            "\t\tscrollTop = document.documentElement.scrollTop;",
+            "\t} else if (document.body) {",
+            "\t\tscrollTop = document.body.scrollTop;",
+            "\t}",
+            "\treturn scrollTop;",
+            "}"
+        ],
+        "description": "getScrollHeight_JS"
+    },
+    // =================== Promise ===================
+    "Promise": {
+        "prefix": "promise",
+        "body": [
+            "return new Promise(function(resolve, reject) {})"
+        ],
+        "description": "promise"
+    },
+    "Promise_Timeout": {
+        "prefix": "Promise_Timeout",
+        "body": [
+            "// 防止超时 Promise.race([timeoutPromise(), foo()])",
+            "function timeoutPromise(delay) {",
+            "\treturn new Promise(function(resolve, reject) {",
+            "\t\tsetTimeout(() => {",
+            "\t\t\treject(\"Timeout!\");",
+            "\t\t}, delay);",
+            "\t});",
+            "}"
+        ],
+        "description": "Promise_Timeout"
+    },
+    // =================== jQuery代码段 ===================
+    "jq-gotop": {
+        "prefix": "jq-gotop",
+        "body": [
+            "$('.gotop').on('click', function (e) {",
+            "\tvar that = this;",
+            "\tthat.timer = setInterval(function () {",
+            "\t\t$(window).scrollTop(Math.floor($(window).scrollTop() * 0.8));",
+            "\t\tif ($(window).scrollTop() == 0) { clearInterval(that.timer);}",
+            "\t}, 10);",
+            "});"
+        ],
+        "description": "回到顶部"
+    },
+    // =================== Fetch ===================
+    "fetch_get": {
+        "prefix": "fetch_get",
+        "body": "fetch(\"http://b2b2c.shopnctest.com/dema/mo_bile/index.php?act=index\", {\n\tmethod: \"get\"\n})\n.then(function (response){\n\treturn response.json()\n})\n.then(function (data){\n\tconsole.log(data);\n}, function(error){\n\tconsole.log(error.message);\n});",
+        "description": "fetch_get"
+    },
+    "fetch_post": {
+        "prefix": "fetch_post",
+        "body": "fetch('http://b2b2c.shopnctest.com/dema/mo_bile/index.php?act=index', {\n\tmethod: 'POST', \n\tbody: new URLSearchParams([['msg', 'msg'],['test', 'test']]).toString(),\n\theaders: new Headers({\n\t\t'Content-Type': 'application/x-www-form-urlencoded'\n\t})\n})\n.then(function(response) {\n\treturn response.json();\n})\n.then(function(data) {\n\tconsole.log(data);\n})\n.catch(function(error) {\n\tconsole.log(error.message);\n});",
+        "description": "fetch_post"
+    },
+    // =================== Code Complete ===================
+    "code-complete-score-table": {
+        "prefix": "code-complete-score-table",
+        "body": [
+            "var getLevelByScore = function (score) {",
+            "\tvar item = -1, i = -1, level = 'ERROR';",
+            "\tvar scoreTable = {",
+            "\t\t'F': 50,",
+            "\t\t'D': 65,",
+            "\t\t'C': 75,",
+            "\t\t'B': 90,",
+            "\t\t'A': 100",
+            "\t};",
+            "\tvar keys = Object.keys(scoreTable);",
+            "\r",
+            "\tfor (i = 0; i < keys.length; i++) {",
+            "\t\titem = scoreTable[keys[i]];",
+            "\t\tif (score < item) {",
+            "\t\t\tlevel = keys[i];",
+            "\t\t\tbreak;",
+            "\t\t}",
+            "\t}",
+            "\r",
+            "\treturn level;",
+            "};",
+            "\r",
+            "console.log(getLevelByScore(101));",
+        ],
+        "description": "阶梯表查询"
+    },
+    "code-complete-month-table": {
+        "prefix": "code-complete-month-table",
+        "body": [
+            "var leapYearIndex = function (year) {",
+            "\tyear = year || new Date().getFullYear();",
+            "\tvar cond1 = year % 4 === 0;  ",
+            "\tvar cond2 = year % 100 !== 0;  ",
+            "\tvar cond3 = year % 400 === 0;  ",
+            "\tvar cond = cond1 && cond2 || cond3;",
+            "\treturn cond ? 1 : 0;",
+            "};",
+            "\r",
+            "var getDaysForMonth = function (month, leapYearIndex) {",
+            "\tvar getDaysForMonthTable = [31, (leapYearIndex === 1 ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];",
+            "\r",
+            "\t// 此处利用闭包, 不会每次求值 table 里面的值",
+            "\treturn function() {",
+            "\t\treturn getDaysForMonthTable[month-1];",
+            "\t}();",
+            "};",
+            "\r",
+            "console.log(getDaysForMonth(2, leapYearIndex()));",
+        ],
+        "description": "根据月份获取当月的天数"
+    },
+    "code-complete-event-table": {
+        "prefix": "code-complete-event-table",
+        "body": [
+            "$('body').on('click', '*[ys-event]', function (e) {",
+            "\tvar othis = $(this), methid = othis.attr('ys-event');",
+            "\t// 调用事件表",
+            "\tevents[methid] ? events[methid].apply(this, [othis, e]) : '';",
+            "});",
+            "// 事件表里面存放动作",
+            "var events = {",
+            "\tdetail: function (othis, e) {",
+            "\t\tconsole.log('详情');",
+            "\t}",
+            "\t// ... 其他表成员",
+            "};"
+        ],
+        "description": "事件表"
+    },
+    // =================== Layui Start ===================
+    "layui-page": {
+        "prefix": "layui-page",
+        "body": [
+            "laypage.render({",
+            "\telem: 'page',",
+            "\tcount: 70,",
+            "\tjump: function(obj, first){",
+            "\t\t//obj包含了当前分页的所有参数，比如：",
+            "\t\tconsole.log(obj.curr);  //得到当前页，以便向服务端请求对应页的数据。",
+            "\t\tconsole.log(obj.limit); //得到每页显示的条数",
+            "\t\t//首次不执行",
+            "\t\tif(!first){",
+            "\t\t\t//do something",
+            "\t\t}",
+            "\t}",
+            "});"
+        ],
+        "description": "分页"
+    },
+    "layui-table-async": {
+        "prefix": "layui-table-async",
+        "body": [
+            "url: 'https://api.apiopen.top/getImages',",
+            "method: 'get',",
+            "where: {",
+            "\ttoken: 'xxxx',",
+            "\tid: 123",
+            "},",
+            "parseData: function (res) { //res 即为原始返回的数据",
+            "\treturn {",
+            "\t\t\"code\": res.status, //解析接口状态",
+            "\t\t\"msg\": res.message, //解析提示文本",
+            "\t\t\"count\": res.total, //解析数据长度",
+            "\t\t\"data\": res.data.item //解析数据列表",
+            "\t};",
+            "},",
+            "request: {",
+            "\tpageName: 'curr',  // 页码的参数名称，默认：page",
+            "\tlimitName: 'nums'  // 每页数据量的参数名，默认：limit",
+            "},",
+            "response: {",
+            "\t\tstatusName: 'status', // 规定数据状态的字段名称，默认：code",
+            "\t\tstatusCode: 200 ,// 规定成功的状态码，默认：0",
+            "\t\tmsgName: 'hint', // 规定状态信息的字段名称，默认：msg",
+            "\t\tcountName: 'total', //规定数据总数的字段名称，默认：count",
+            "\t\tdataName: 'rows' //规定数据列表的字段名称，默认：data",
+            "},",
+        ],
+        "description": "table 异步"
+    },
+    "layui-table-toolbar": {
+        "prefix": "layui-table-toolbar",
+        "body": [
+            "{ title: '操作', toolbar: '#barTpl' }",
+            " < !--toolbar 模板-- >",
+            "<script type=\"text/html\" id=\"barTpl\">",
+            "\t<a class=\"layui-btn layui-btn-xs\" lay-event=\"detail\">查看</a>",
+            "\t<a class=\"layui-btn layui-btn-xs\" lay-event=\"edit\">编辑</a>",
+            "\t<a class=\"layui-btn layui-btn-danger layui-btn-xs\" lay-event=\"del\">删除</a>",
+            "</script>",
+            "// 事件处理方法",
+            "var toolEvent = {",
+            "\tdetail: function(obj) {",
+            "\t\tconsole.log(obj);",
+            "\t},",
+            "\tedit: function(obj) {",
+            "\t\tconsole.log(obj);",
+            "\t\t//同步更新缓存对应的值",
+            "\t\tobj.update({",
+            "\t\t\tusername: '123',",
+            "\t\t\ttitle: 'xxx'",
+            "\t\t});",
+            "\t},",
+            "\tdel: function(obj) {",
+            "\t\tconsole.log(obj);",
+            "\t}",
+            "};",
+            "// 绑定事件 table.on('tool(filter)', function() {});",
+            "table.on('tool(tb)', function (obj) {",
+            "\tvar layEvent = obj.event;",
+            "\ttoolEvent[layEvent] ? toolEvent[layEvent].apply(this, [obj]) : '';",
+            "});",
+        ],
+        "description": "table toolbar"
+    },
+    "layui-table-templet-type-1": {
+        "prefix": "layui-table-templet-type-1",
+        "body": [
+            "{ filed: 'img', title: '图片', templet: '#imgTpl' }",
+            "<script type=\"text/html\" id=\"imgTpl\">",
+            "\t<img src=\"{{ d.img }}\" />",
+            "</script>"
+        ],
+        "description": "table templet 模板方式一, 适合字符量特别大的"
+    },
+    "layui-table-templet-type-2": {
+        "prefix": "layui-table-templet-type-2",
+        "body": [
+            "{ filed: 'img', title: '图片', templet: function(d) {",
+            "\treturn `<img src=${d.img} />`",
+            "}}"
+        ],
+        "description": "table templet 模板方式二, 适合字符量中等的"
+    },
+    "layui-table-templet-type-3": {
+        "prefix": "layui-table-templet-type-3",
+        "body": [
+            "{ filed: 'img', title: '图片', templet: '<div><img src=\"{{ d.img }}\" /></div>' }"
+        ],
+        "description": "table templet 模板方式三, 适合字符特别小的"
+    },
+    "layui-table-done": {
+        "prefix": "layui-table-done",
+        "body": [
+            "done: function(res, curr, count) {",
+            "\t// res: 当前返回数据, curr: 当前页, count: 页面总数",
+            "}"
+        ],
+        "description": "table done 回调函数"
+    },
+    "layui-table-on": {
+        "prefix": "layui-table-on",
+        "body": [
+            "// 事件监听。event为内置事件名，filter为容器lay-filter设定的值",
+            "// event: checkbox, toolbar, edit, row, rowDouble, sort",
+            "// 如: table.on(checkbox(filter), callback)",
+            "table.on('event(filter)', callback);"
+        ],
+        "description": "layui 事件监听"
+    },
+    "layui-table-resize": {
+        "prefix": "layui-table-resize",
+        "body": [
+            "//重置表格尺寸",
+            "table.resize(id);"
+        ],
+        "description": "layui 重置表格尺寸"
+    },
+    "layui-table-checkStatus": {
+        "prefix": "layui-table-checkStatus",
+        "body": [
+            "// 获取表格选中行（下文会有详细介绍）。id 即为 id 参数对应的值",
+            "table.checkStatus(id);"
+        ],
+        "description": "layui 获取表格选中行"
+    },
+    "layui-table-set": {
+        "prefix": "layui-table-set",
+        "body": [
+            "// 设定全局默认参数。options即各项基础参数",
+            "table.set(options);"
+        ],
+        "description": "layui 设定全局默认参数"
+    },
+    "layui-table-init": {
+        "prefix": "layui-table-init",
+        "body": [
+            "table.init('filter', options);"
+        ],
+        "description": "layui转换静态表格, filter: lay-filter, options: 基础参数"
+    },
+    "layui-table-reload": {
+        "prefix": "layui-table-reload",
+        "body": [
+            "table.reload('id', options);"
+        ],
+        "description": "layui表格重载, id: 容器唯一ID, options: 基础参数"
+    },
+    "layui-table-render": {
+        "prefix": "layui-table-render",
+        "body": [
+            "// type: numbers, radio, checkbox, normal, space",
+            "table.render({",
+            "\telem: '#tb',",
+            "\turl: 'https://api.apiopen.top/getImages',",
+            "\tcols: [[",
+            "\t\t{ type: 'checkbox', LAY_CHECKED: true },",
+            "\t\t{ field: 'id', title: 'ID' },",
+            "\t\t{ field: 'time', title: '时间' },",
+            "\t\t{ field: 'img', title: '图片' }",
+            "\t]],",
+            "\tresponse: {",
+            "\t\tstatusCode: 200",
+            "\t},",
+            "\tparseData: function(res) {",
+            "\t\treturn {",
+            "\t\t\t'code': res.code,",
+            "\t\t\t'msg': res.message,",
+            "\t\t\t'data': res.result,",
+            "\t\t\t'count': 100",
+            "\t\t}",
+            "\t},",
+            "\tpage: true,",
+            "\theight: 500,",
+            "\tdone: function(res, curr, count) {",
+            "\t\tconsole.log(res);",
+            "}",
+            "});"
+        ],
+        "description": "layui渲染table"
+    },
+    "layui-use": {
+        "prefix": "layui-use",
+        "body": [
+            "layui.use('form', function () {${1}});"
+        ],
+        "description": "layui使用模块"
+    },
+    "layui-localStorage": {
+        "prefix": "layui-localStorage",
+        "body": [
+            "layui.data('test', { key: 'nickname' ,value: '一十'});\nvar localTest = layui.data('test');"
+        ],
+        "description": "获取 localStorage 本地存储"
+    },
+    "layui-session": {
+        "prefix": "layui-session",
+        "body": [
+            "layui.sessionData('test', { key: 'nickname' ,value: '一十'});\nvar localTest = layui.data('test');"
+        ],
+        "description": "获取 sesstion 本地存储"
+    },
+    "layui-device": {
+        "prefix": "layui-device",
+        "body": [
+            "var device = layui.device();\nconsole.log(device);"
+        ],
+        "description": "获取设备信息"
+    },
+    "layui-tpl": {
+        "prefix": "layui-tpl",
+        "body": [
+            "laytpl('string').render(object);"
+        ],
+        "description": "layui 模板引擎"
+    },
+    "layui-flow": {
+        "prefix": "layui-flow",
+        "body": [
+            "flow.load({",
+            "\telem: '#elem',",
+            "\tdone: function(page, next) { // 到达临界点(默认滚动触发), 触发下一页",
+            "\t\tvar lis = [];",
+            "\t\t// 异步获取数据",
+            "\t\tnext('列表HTML片段',  满足加载的条件);",
+            "\t}",
+            "})"
+        ],
+        "description": "流加载"
+    },
+    // =================== Util 工具方法 ===================
+    // =================== Cookie ===================
+    // https://www.imooc.com/video/149
+    // http://www.runoob.com/js/js-cookies.html
+    "util-digit": {
+        "prefix": "util-checkEmptyObject",
+        "body": [
+            "var checkEmptyObject = function (value) {",
+            "\treturn value && Object.keys(value).length === 0;",
+            "};"
+        ],
+        "description": "检查一个对象是否是 {} 空对象"
+    },
+    "util-toDateString": {
+        "prefix": "util-toDateString",
+        "body": [
+            "// 需求: 传入一个时间戳, 把它给转换成 2019-02-09 11:11:11 这种样式",
+            "// 1. 解决空值的情况, 空值传入当前时间",
+            "// 2. format 填充默认值  yyyy-MM-dd HH:mm:ss",
+            "var toDateString = function (time, format) {",
+            "\t// console.log(toDateString());",
+            "\tvar date = new Date(time || new Date());",
+            "\tvar ymd = [",
+            "\t\tdigit(date.getFullYear(), 4),",
+            "\t\tdigit(date.getMonth() + 1),",
+            "\t\tdigit(date.getDate())",
+            "\t];",
+            "\tvar hms = [",
+            "\t\tdigit(date.getHours()),",
+            "\t\tdigit(date.getMinutes()),",
+            "\t\tdigit(date.getSeconds())",
+            "\t];",
+            "\tformat = format || 'yyyy-MM-dd HH:mm:ss';",
+            "\treturn format.replace(/yyyy/g, ymd[0])",
+            "\t\t.replace(/MM/g, ymd[1])",
+            "\t\t.replace(/dd/g, ymd[2])",
+            "\t\t.replace(/HH/g, hms[0])",
+            "\t\t.replace(/mm/g, hms[1])",
+            "\t\t.replace(/ss/g, hms[2]);",
+            "};"
+        ],
+        "description": "传入一个时间戳, 把它给转换成 2019-02-09 11:11:11 这种样式"
+    },
+    "util-checkEmptyObject": {
+        "prefix": "util-checkEmptyObject",
+        "body": [
+            "var checkEmptyObject = function (value) {",
+            "\treturn value && Object.keys(value).length === 0;",
+            "};"
+        ],
+        "description": "检查一个对象是否是 {} 空对象"
+    },
+    "util-getCookie": {
+        "prefix": "util-getCookie",
+        "body": "function getCookie(cname) {\n\tvar name = cname+\"=\";\n\tvar ca = document.cookie.split(\";\");\n\tfor(var i = 0; i < ca.length; i++) {\n\t\tvar c = ca[i].trim();\n\t\tif (c.indexOf(name) == 0) {\n\t\t\treturn c.substring(name.length, c.length)\n\t\t}\n\t}\n\treturn \"\";\n};",
+        "description": "获取 Cookie"
+    },
+    "util-setCookie": {
+        "prefix": "util-setCookie",
+        "body": "function setCookie(cname, cvalue, day) {\n\tvar d = new Date();\n\td.setTime(d.getTime()+(day*24*60*60*1000));\n\tvar expires = d.toGMTString();\n\tdocument.cookie = cname+\"=\"+cvalue+\";expires\"+expires;\n}",
+        "description": "设置 Cookie"
+    },
+    "util-getQueryString2": {
+        "prefix": "util-getQueryString2",
+        "body": [
+            "// 获取链接地址的某个参数",
+            "function getQueryString(url, name) {",
+            "\t// ?which=Login&display=pc",
+            "\turl = url.slice(1) || window.location.search.slice(1);",
+            "\tvar reg = RegExp('(^|&)'+name+'=([^&]*)(&|$)');",
+            "\tvar r = url.match(reg);",
+            "\tif (r != null) return r[2]; return '';",
+            "}"
+        ],
+        "description": "获取请求地址的某个参数 2"
+    },
+    "util-getQueryString": {
+        "prefix": "util-getQueryString",
+        "body": [
+            "function getQueryString(name){",
+            "\tvar reg = new RegExp(\"(^|&)\"+ name +\"=([^&]*)(&|$)\");",
+            "\tvar r = window.location.search.substr(1).match(reg);",
+            "\tif (r!=null) return r[2]; return '';",
+            "}"
+        ],
+        "description": "获取请求的某个参数"
+    },
+    "util-getRequestParams": {
+        "prefix": "util-getRequestParams",
+        "body": [
+            "// 获取链接地址的全部参数, 并组合成一个对象返回",
+            "function getRequestParams(url) {",
+            "//\thttps://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&state=82F9B87351641D3B3952436CCF73BC8C3E18CD2915CC1D0C97604239885AC7639358361110563DCBA87D188122BD70F2&client_id=100273020&redirect_uri=https%3A%2F%2Fqq.jd.com%2Fnew%2Fqq%2Fcallback.action%3Fview%3Dnull%26uuid%3Dc0f15f7370f44998add9cc4d7a3e8902",
+            "\tvar i, item, obj = {}, params = [], index = url.indexOf('?');",
+            "\turl = (index > -1) ? url.slice(index + 1) : '';",
+            "\tparams = url.split('&');",
+            "\tfor (i = 0; i < params.length; i++) {",
+            "\t\titem = params[i].split('=');",
+            "\t\tobj[item[0]] = decodeURIComponent(item[1]);",
+            "\t}",
+            "\treturn obj;",
+            "}"
+        ],
+        "description": "获取链接地址的全部参数, 并组合成一个对象返回"
+    },
+    "util-query": {
+        "prefix": "util-query",
+        "body": "function $(selector) {\n\treturn document.querySelector(selector);\n}",
+        "description": "查询 DOM 节点"
+    },
+    "util-formatNumber": {
+        "prefix": "util-formatNumber",
+        "body": [
+            "// 格式化RMB, 1,234,567,890",
+            "var formatNumber = function(str) {",
+            "\treturn str.split(\"\").reverse().reduce(function(prev, next, index) {",
+            "\t\treturn ((index % 3) ? next : (next + ',')) + prev;",
+            "\t});",
+            "}",
+        ],
+        "description": "格式化RMB, 1,234,567,890"
+    },
+    "util-device": {
+        "prefix": "util-device",
+        "body": [
+            "// 获取用户设备信息",
+            "var getDeviceInfo = function() {",
+            "\tvar agent = navigator.userAgent.toLowerCase();",
+            "\tresult = {",
+            "\t\tandroid: function() {",
+            "\t\t\treturn /android/.test(agent);",
+            "\t\t}(),",
+            "\t\tios: function() {",
+            "\t\t\treturn /iphone|ipod|ipad|ios/.test(agent);",
+            "\t\t}(),",
+            "\t\tweixin: function() {",
+            "\t\t\treturn /micromessenger/.test(agent);",
+            "\t\t}()",
+            "\t};",
+            "\tresult.isApp = function() {",
+            "\t\treturn result.android || result.ios;",
+            "\t}();",
+            "\treturn result;",
+            "};"
+        ],
+        "description": "获取设备信息"
+    },
+    "util-random": {
+        "prefix": "util-random",
+        "body": [
+            "// 随机生成一个 min-max 之间的数值",
+            "var random = function(min, max) {",
+            "\tvar choices = max - min + 1;",
+            "\treturn Math.floor(Math.random() * choices + min);",
+            "}"
+        ],
+        "description": "随机生成一个随机数"
+    },
+    "util-htmlEscape": {
+        "prefix": "util-htmlEscape",
+        "body": [
+            "var htmlEscape = function (text) {",
+            "\treturn text.replace(/[<>\"&]/g, function (match, pos, input) {",
+            "\t\tswitch (match) {",
+            "\t\tcase \"<\":",
+            "\t\t\treturn \"&lt;\";",
+            "\t\tcase \">\":",
+            "\t\t\treturn \"&gt;\";",
+            "\t\tcase \"\"\":",
+            "\t\t\treturn \"&amp;\";",
+            "\t\tcase \"&\":",
+            "\t\t\treturn \"&quot;\";",
+            "\t\t}",
+            "\t});",
+            "}"
+        ],
+        "description": "xss攻击"
+    },
+    "util-findChar": {
+        "prefix": "util-findChar",
+        "body": [
+            "//搜索某个字符在字符串中出现的 下标, 如: xiafujianandmengminxue 中 i 的下标",
+            "var findChar = function (str, char) {",
+            "\tvar pos = str.indexOf(char),",
+            "\t\tarr = [];",
+            "\twhile (pos > -1) {",
+            "\t\tarr.push(pos);",
+            "\t\tpos = str.indexOf(char, pos + 1)",
+            "\t}",
+            "\treturn arr;",
+            "}"
+        ],
+        "description": "搜索某个字符出现的次数"
+    },
+    "util-digit-1": {
+        "prefix": "util-digit-1",
+        "body": [
+            "// 1=>01  位数补齐",
+            "var digit = function(num) {",
+            "\treturn num < 10 ? `0${(num | 0)}` : num;",
+            "}"
+        ],
+        "description": "数位补齐"
+    },
+    "util-digit-2": {
+        "prefix": "util-digit-2",
+        "body": [
+            "var digit = function (num, length) {",
+            "\tlength = length || 2;",
+            "\treturn String(num).padStart(length, '0');",
+            "};"
+        ],
+        "description": "数位补齐"
+    },
+    "util-timeAgo": {
+        "prefix": "util-timeAgo",
+        "body": [
+            "// 某个时间在当前时间的多久前",
+            "// 如果在 3 分钟以内, 返回: 刚刚",
+            "// 如果在 30 天以内, 返回: 若干分钟前、若干小时前、若干天前 如: 5分钟前",
+            "// 如果在 30 天以上, 返回: 日期字符, 如: 2017-01-01",
+            "var timeAgo = function (time, onlyDate) {",
+            "\t// console.log(timeAgo(1549689426021));",
+            "\tvar arr = [[], []];",
+            "\tvar stamp = new Date().getTime() - new Date(time).getTime();",
+            "\t// 返回具体日期",
+            "\tif (stamp > 1000*60*60*24*8) {",
+            "\t\tstamp = new Date(time);",
+            "\t\tarr[0][0] = digit(stamp.getFullYear(), 4);",
+            "\t\tarr[0][1] = digit(stamp.getMonth() + 1);",
+            "\t\tarr[0][2] = digit(stamp.getDate());",
+            "\t\t// 是否输出时间",
+            "\t\tif (!onlyDate) {",
+            "\t\t\tarr[1][0] = digit(stamp.getHours());",
+            "\t\t\tarr[1][1] = digit(stamp.getMinutes());",
+            "\t\t\tarr[1][2] = digit(stamp.getSeconds());",
+            "\t\t}",
+            "\t\treturn arr[0].join('-') + ' ' + arr[1].join(':');",
+            "\t}",
+            "\t// 30天以内，返回“多久前”",
+            "\tif (stamp >= 1000*60*60*24) {",
+            "\t\treturn ((stamp/1000/60/60/24)|0)+'天前';",
+            "\t} else if (stamp >= 1000*60*60) {",
+            "\t\treturn ((stamp/1000/60/60)|0)+'小时前';",
+            "\t} else if (stamp >= 1000*60*2) {",
+            "\t\treturn ((stamp/1000/60)|0) + '分钟前';",
+            "\t} else if (stamp < 0) {",
+            "\t\treturn '未来'",
+            "\t} else {",
+            "\t\treturn '刚刚'",
+            "\t}",
+            "};"
+        ],
+        "description": "某个时间在当前时间的多久前"
+    },
+    "util-date": {
+        "prefix": "util-date",
+        "body": [
+            "// 根据时间戳 获取当前时间格式, 默认当前时间 如：1541756114124 => 2018-11-9 17:35:44",
+            "var date = function (timestamp) {",
+            "\tvar d = new Date(timestamp || new Date());",
+            "\treturn `${d.getFullYear()}-${digit(d.getMonth() + 1)}-${digit(d.getDate())} ${digit(d.getHours())}:${digit(d.getMinutes())}:${digit(d.getSeconds())}`;",
+            "}"
+        ],
+        "description": "转换时间戳"
+    }
+}

@@ -1,0 +1,338 @@
+{
+    // Place your snippets for html here. Each snippet is defined under a snippet name and has a prefix, body and 
+    // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+    // same ids are connected.
+    // Example:
+    "Print to console": {
+        "prefix": "log",
+        "body": [
+            "console.log2('$1');",
+            "$2"
+        ],
+        "description": "Log output to console"
+    },
+    // ==================== 高效前端(Book) =======================
+    "effective-nav": {
+        "prefix": "effective-nav",
+        "body": [
+            "<body class=\"home\">",
+            "\t<nav>",
+            "\t\t<ul>",
+            "\t\t\t<li class=\"home\">HOME</li>",
+            "\t\t\t<li>BUY</li>",
+            "\t\t\t<li>SELL</li>",
+            "\t\t\t<li>HOME EVALUATION</li>",
+            "\t\t\t<li>NEIGHBORHOODS</li>",
+            "\t\t\t<li>BLOGS</li>",
+            "\t\t\t<li>ABOUT</li>",
+            "\t\t</ul>",
+            "\t</nav>",
+            "</body>"
+        ],
+        "description": "通过 body 与 li 的类建立起一一对应的关系"
+    },
+    "effective-item": {
+        "prefix": "effective-item",
+        "body": [
+            "<ul>",
+            "\t<li>1</li>",
+            "\t<li>2</li>",
+            "\t<li>3</li>",
+            "</ul>"
+        ],
+        "description": "item 个数不一定 如果只有1个, 那这个 item 占宽 100%, 有 2 个时每一个占 50%,3 个时每一个占 33%"
+    },
+    "effective-checkbox": {
+        "prefix": "effective-checkbox",
+        "body": [
+            "<label>",
+            "\t<input type=\"checkbox\" />",
+            "\t<span class=\"checkbox\"></span>",
+            "</label>"
+        ],
+        "description": "美化 checkbox/radio 样式"
+    },
+    // ==================== CSS 揭秘(Book) =======================
+    "secrets_circular": {
+        "prefix": "secrets_circular",
+        "body": [
+            "<div class=\"m_circular\">",
+            "\t<svg viewBox=\"0 0 30 30\">",
+            "\t\t<path d=\"M 0,15 a 15,15 0 1,1 0,1 z\" id=\"circle\" />",
+            "\t\t<text>",
+            "\t\t\t<textPath xlink:href=\"#circle\">YISHISTARTPOINT!</textPath>",
+            "\t\t</text>",
+            "\t</svg>",
+            "</div>"
+        ],
+        "description": "环形文字"
+    },
+    "secrets_filter": {
+        "prefix": "secrets_filter",
+        "body": [
+            "<div class=\"m_filter\">",
+            "\t<div class=\"inner\"></div>",
+            "</div>"
+        ],
+        "description": "毛玻璃"
+    },
+    // ==================== ICON =======================
+    "icon": {
+        "prefix": "icon",
+        "body": [
+            "<i class=\"iconfont icon-home\"></i>"
+        ],
+        "description": "icon"
+    },
+    // ==================== Layout Module =======================
+    // 左二右一布局
+    "Mod to L2R1": {
+        "prefix": "mod_l2_r1",
+        "body": [
+            "<ul class=\"mod_l2_r1\">",
+            "\t<li>",
+            "\t\t<a href=\"###\">",
+            "\t\t\t<img src=\"http://b2b2c.shopnctest.com/dema/data/upload/mobile/special/s0/s0_04953035423748800.jpg\" />",
+            "\t\t</a>",
+            "\t</li>",
+            "\t<li>",
+            "\t\t<a href=\"###\">",
+            "\t\t\t<img src=\"http://b2b2c.shopnctest.com/dema/data/upload/mobile/special/s0/s0_04953035652370175.jpg\" />",
+            "\t\t</a>",
+            "\t</li>",
+            "\t<li>",
+            "\t\t<a href=\"###\">",
+            "\t\t\t<img src=\"http://b2b2c.shopnctest.com/dema/data/upload/mobile/special/s0/s0_04953035743407744.jpg\" />",
+            "\t\t</a>",
+            "\t</li>",
+            "</ul>"
+        ]
+    },
+    // ==================== Custom Module =======================
+    // Sticky
+    "Mod to Sticky": {
+        "prefix": "mod_sticky",
+        "body": [
+            "<div class=\"mod_sticky\">",
+            "\t<div class=\"mod_sticky_cont\"></div>",
+            "\t<div class=\"mod_sticky_foot\"></div>",
+            "</div>"
+        ]
+    },
+    // Card
+    "Mod to Card": {
+        "prefix": "mod_card",
+        "body": [
+            "<div class=\"mod_card\">",
+            "\t<div class=\"mod_card_header\"></div>",
+            "\t<div class=\"mod_card_content\"></div>",
+            "\t<div class=\"mod_card_footer\"></div>",
+            "</div>"
+        ]
+    },
+    // List
+    "Mod to List": {
+        "prefix": "mod_list",
+        "body": [
+            "<ul class=\"mod_list\">\n\t<li class=\"mod_list_item\"></li>\n</ul>"
+        ]
+    },
+    // Form
+    "Mod to Form": {
+        "prefix": "mod_form",
+        "body": [
+            "<div class=\"mod_form\">\n\t<div class=\"mod_form_item\">\n\t\t<label class=\"mod_lable\"></label>\n\t\t<div class=\"mod_form_cont\">\n\t\t\t<input class=\"mod_input\" type=\"text\" />\n\t\t</div>\n\t</div>\n</div>"
+        ]
+    },
+    // ==================== Layui =======================
+    "Layui Page render": {
+        "prefix": "layui-page",
+        "body": [
+            "<div id=\"page\"></div>"
+        ],
+        "description": "layui-page"
+    },
+    "Layui Table render": {
+        "prefix": "layui-table-render",
+        "body": [
+            "<table id=\"demo\" lay-filter=\"test\"></table>"
+        ],
+        "description": "layui-table-render"
+    },
+    "Layui Table": {
+        "prefix": "layui-table",
+        "body": [
+            "<!-- lay-even: 用于开启 隔行 背景  lay-skin: 风格  lay-size: 尺寸 -->",
+            "<table class=\"layui-table\" lay-even lay-skin=\"nob\" lay-size=\"lg\">",
+            "\t<colgroup>",
+            "\t\t<col width=\"150\"></col>",
+            "\t\t<col width=\"200\"></col>",
+            "\t</colgroup>",
+            "\t<thead>",
+            "\t\t<tr>",
+            "\t\t\t<th>姓名</th>",
+            "\t\t\t<th>时间</th>",
+            "\t\t\t<th>状态</th>",
+            "\t\t</tr>",
+            "\t</thead>",
+            "\t<tbody>",
+            "\t\t<tr>",
+            "\t\t\t<td>孟民雪</td>",
+            "\t\t\t<td>2018-9-17</td>",
+            "\t\t\t<td>未婚</td>",
+            "\t\t</tr>",
+            "\t</tbody>",
+            "</table>",
+        ],
+        "description": "layui-table"
+    },
+    "Layui Script": {
+        "prefix": "layui-templet-script",
+        "body": [
+            "<script type=\"text/html\" id=\"${1}\"></script>"
+        ],
+        "description": "layui-templet-script"
+    },
+    // 按钮 layui-btn layui-btn-{type}
+    "Layui Btn": {
+        "prefix": "layui-btn",
+        "body": "<button class=\"layui-btn layui-btn-primary\">原始按钮</button>"
+    },
+    // 按钮组
+    "Layui BtnGroup": {
+        "prefix": "layui-btn-group",
+        "body": "<div class=\"layui-btn-group\">\n\t<button class=\"layui-btn\">增加</button>\n\t<button class=\"layui-btn\">删除</button>\n\t<button class=\"layui-btn\">修改</button>\n</div>"
+    },
+    // 按钮容器
+    "Layui BtnContainer": {
+        "prefix": "layui-btn-container",
+        "body": "<div class=\"layui-btn-container\">\n\t<button class=\"layui-btn\">增加</button>\n\t<button class=\"layui-btn\">删除</button>\n\t<button class=\"layui-btn\">修改</button>\n</div>"
+    },
+    // 流体 100%
+    "Layui Btn Fluid": {
+        "prefix": "layui-btn-fluid",
+        "body": "<button class=\"layui-btn layui-btn-fluid\">流体按钮</button>"
+    },
+    // 栅格行
+    "Layui Row": {
+        "prefix": "layui-row",
+        "body": "<div class=\"layui-row\">\n\t<div class=\"layui-col-md6\">\n\t</div>\n\t<div class=\"layui-col-md6\">\n\t</div>\n</div>"
+    },
+    "Layui Checkbox": {
+        "prefix": "layui-checkbox",
+        "body": "<input type=\"checkbox\" name=\"\" title=\"${1}\" lay-skin=\"primary\" checked>"
+    },
+    "Layui Input": {
+        "prefix": "layui-input",
+        "body": "<input type=\"text\" name=\"${1}\" required lay-verify=\"required\" placeholder=\"${2}\" autocomplete=\"off\" class=\"layui-input\">"
+    },
+    "Layui badge dot": {
+        "prefix": "layui-badge-dot",
+        "body": "<span class=\"layui-badge-dot\"></span>"
+    },
+    "Layui badge": {
+        "prefix": "layui-badge",
+        "body": "<span class=\"layui-badge\">${1}</span>"
+    },
+    "Layui badge rim": {
+        "prefix": "layui-badge-rim",
+        "body": "<span class=\"layui-badge-rim\">${1}</span>"
+    },
+    "Layui elem quote": {
+        "prefix": "layui-elem-quote",
+        "body": "<blockquote class=\"layui-elem-quote\">${1}</blockquote>"
+    },
+    "Layui Card": {
+        "prefix": "layui-card",
+        "body": "<div class=\"layui-card\">\n\t<div class=\"layui-card-header\">卡片面板</div>\n\t<div class=\"layui-card-body\">卡片式面板面板通常用于非白色背景色的主体内</div>\n</div>"
+    },
+    "Layui container": {
+        "prefix": "layui-container",
+        "body": "<div class=\"layui-container\">${1}</div>"
+    },
+    "Layui container2": {
+        "prefix": "layui-fluid",
+        "body": "<div class=\"layui-fluid\">${1}</div>"
+    },
+    // 水平导航
+    // layui-this 默认选中
+    "Layui Nav": {
+        "prefix": "layui-nav", // 结合 layui-badge-dot 使用时, 容易出现空格问题, 要写在一行才可以
+        "body": "<ul class=\"layui-nav\">\n\t<li class=\"layui-nav-item layui-this\"><a href=\"\">导航1</a></li>\n\t<li class=\"layui-nav-item\">\n\t\t<a href=\"\">解决方案</a>\n\t\t<dl class=\"layui-nav-child\">\n\t\t\t<dd><a href=\"\">移动端</a></dd>\n\t\t</dl>\n\t</li>\n\t<li class=\"layui-nav-item\"><a href=\"\">导航1</a></li>\n</ul>"
+    },
+    // 垂直导航
+    // .layui-nav .layui-nav-tree
+    // .layui-nav-itemed 默认展开
+    "Layui Nav Tree": {
+        "prefix": "layui-nav-tree",
+        "body": "<ul class=\"layui-nav layui-nav-tree\">\n\t<li class=\"layui-nav-item\"><a href=\"javascript:;\">导航1</a></li>\n\t<li class=\"layui-nav-item layui-nav-itemed\">\n\t\t<a href=\"javascript:;\">解决方案</a>\n\t\t<dl class=\"layui-nav-child\">\n\t\t\t<dd><a href=\"javascript:;\">移动端</a></dd>\n\t\t</dl>\n\t</li>\n\t<li class=\"layui-nav-item\"><a href=\"javascript:;\">导航1</a></li>\n</ul>"
+    },
+    // 侧边导航
+    // .layui-nav .layui-nav-tree .layui-nav-side
+    // .layui-nav-itemed 默认展开
+    "Layui Nav Side": {
+        "prefix": "layui-nav-side",
+        "body": "<ul class=\"layui-nav layui-nav-tree layui-nav-side\">\n\t<li class=\"layui-nav-item\"><a href=\"javascript:;\">导航1</a></li>\n\t<li class=\"layui-nav-item layui-nav-itemed\">\n\t\t<a href=\"javascript:;\">解决方案</a>\n\t\t<dl class=\"layui-nav-child\">\n\t\t\t<dd><a href=\"javascript:;\">移动端</a></dd>\n\t\t</dl>\n\t</li>\n\t<li class=\"layui-nav-item\"><a href=\"javascript:;\">导航1</a></li>\n</ul>"
+    },
+    // 面包屑导航
+    // lay-separator=“|” 设置分隔符
+    "Layui Breadcrumb": {
+        "prefix": "layui-breadcrumb",
+        "body": "<span class=\"layui-breadcrumb\" lay-separator=\"\">\n\t<a href=\"\">首页</a>\n\t<a href=\"\">国际新闻</a>\n\t<a href=\"\">亚太地区</a>\n\t<a><cite>正文</cite></a>\n</span>"
+    },
+    // 图标
+    "Layui Icon": {
+        "prefix": "layui-icon",
+        "body": "<i class=\"layui-icon layui-icon-face-smile\"></i>"
+    },
+    // 动画
+    "Layui Animation": {
+        "prefix": "layui-anim",
+        "body": "<div class=\"layui-anim layui-anim-up layui-anim-loop layui-bg-orange\">动画测试</div>"
+    },
+    // select
+    "Layui Select": {
+        "prefix": "layui-select",
+        "body": "<div class=\"layui-form\"><select name=\"\" id=\"\" lay-search><option value=\"\">请选择</option><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option></select></div>"
+    },
+    // radio
+    "Layui Radio": {
+        "prefix": "layui-radio",
+        "body": "<div class=\"layui-form\"><input type=\"radio\" title=\"男\" name=\"sex\" value=\"nan\" /></div>"
+    },
+    // textarea
+    "Layui Textarea": {
+        "prefix": "layui-textarea",
+        "body": "<textarea name=\"\" required lay-verify=\"required\" placeholder=\"请输入\" class=\"layui-textarea\"></textarea>"
+    },
+    // TAB
+    // layui-tab-brief 简洁风格
+    // layui-tab-card  卡片风格
+    // lay-allowClose="true" 带删除的卡片风格
+    "Layui Tab": {
+        "prefix": "layui-tab",
+        "body": "<div class=\"layui-tab\">\n\t<ul class=\"layui-tab-title\">\n\t\t<li>HTML</li>\n\t\t<li class=\"layui-this\">CSS</li>\n\t\t<li>JAVASCRIPT</li>\n\t</ul>\n\t<div class=\"layui-tab-content\">\n\t\t<div class=\"layui-tab-item \">HTML</div>\n\t\t<div class=\"layui-tab-item layui-show\">CSS</div>\n\t\t<div class=\"layui-tab-item \">JAVASCRIPT</div>\n\t</div>\n</div>"
+    },
+    // Progress
+    "Layui Progress": {
+        "prefix": "layui-progress",
+        "body": "<div class=\"layui-progress\">\n\t<div class=\"layui-progress-bar\" lay-percent=\"20%\"></div>\n</div>"
+    },
+    // Collapse 手风琴
+    // lay-accordion 属性-> 手风琴
+    "Layui Collapse": {
+        "prefix": "layui-collapse",
+        "body": "<div class=\"layui-collapse\"><div class=\"layui-colla-item\"><h2 class=\"layui-colla-title\">HTML</h2><div class=\"layui-colla-content layui-show\">HTML</div></div><div class=\"layui-colla-item\"><h2 class=\"layui-colla-title\">CSS</h2><div class=\"layui-colla-content\">CSS</div></div><div class=\"layui-colla-item\"><h2 class=\"layui-colla-title\">JAVASCRIPT</h2><div class=\"layui-colla-content\">JAVASCRIPT</div></div></div>"
+    },
+    // TimeLine
+    "Layui TimeLine": {
+        "prefix": "layui-timeline",
+        "body": "<ul class=\"layui-timeline\"><li class=\"layui-timeline-item\"><i class=\"layui-icon layui-timeline-axis\">&#xe63f;</i><div class=\"layui-timeline-content layui-text\"><h3 class=\"layui-timeline-title\">8月18日</h3>内容可以随便定义</div></li></ul>"
+    },
+    // Carousel
+    "Layui Carousel": {
+        "prefix": "layui-carousel",
+        "body": "<div class=\"layui-carousel\" id=\"demo\"><div carousel-item><div>条目1</div><div>条目2</div><div>条目3</div><div>条目4</div></div></div>"
+    }
+}
