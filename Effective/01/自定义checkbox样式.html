@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 利用 css3 伪类 :checked */
+        input[type=checkbox] { display: none;}
+        .checkbox { display: inline-block; width: 20px; height: 20px; border: 1px solid #ddd; }
+        input[type=checkbox]:checked + .checkbox { background-color: red; }
+    </style>
+</head>
+<body>
+    <label>
+        <input type="checkbox" />
+        <span class="checkbox"></span>
+    </label>
+</body>
+</html>

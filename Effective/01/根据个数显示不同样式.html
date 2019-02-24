@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* item 个数不一定 如果只有1个, 那这个 item 占宽 100%, 
+        有 2 个时每一个占 50%,  3 个时每一个占 33% */
+        ul { overflow: hidden; }
+        ul li { float: left; }
+        li { width: 100%; height: 200px; background-color: red; }
+        li:first-child:nth-last-child(2),
+        li:first-child:nth-last-child(2) ~ li { width: 50%; }
+        li:first-child:nth-last-child(3),
+        li:first-child:nth-last-child(3) ~ li { width: 33%; }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</body>
+</html>

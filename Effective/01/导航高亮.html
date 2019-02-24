@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 原理: 通过 body 与 li 的类建立起一一对应的关系 */
+        /* home.html */
+        /* <body class="home"></body> */
+        /* buy.html */
+        /* <body class="body"></body> */
+        
+        nav li { opacity: 0.5; }
+        body.home nav li.home { opacity: 1; }
+        nav li:hover { opacity: 1; }
+    </style>
+</head>
+<body class="home">
+    <nav>
+        <ul>
+            <li class="home">HOME</li>
+            <li>BUY</li>
+            <li>SELL</li>
+            <li>HOME EVALUATION</li>
+            <li>NEIGHBORHOODS</li>
+            <li>BLOGS</li>
+            <li>ABOUT</li>
+        </ul>
+    </nav>
+
+    <script>
+        var doSomeThing = function (a) {
+            var lookup = { x: doX, y: doY }, def = doZ;
+            lookup[a] ? lookup[a]() : def();
+        };
+    </script>
+</body>
+</html>
