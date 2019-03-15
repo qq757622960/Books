@@ -1,21 +1,789 @@
 
 ;(function() {
+
+    /**
+     * 一般控制问题
+     * 🙂读代码先读主流程
+     * 用决策表代替复杂的条件
+     * 优化一: 以后使用布尔表达式的判断里采用 true 和 false, 主要是语义清晰
+     * if (isFlag === true) {}
+     * 
+     * 优化二: 避免再程序中使用 0 和 1 这样的神秘数值
+     * 
+     * 优化三: 隐式比较布尔值与 true 和 false
+     * while (not done)...
+     * while (a > b) ...
+     * 
+     * 优化四: 写出表达式要像英语的对话一样
+     * if (printerError) Then NotifyUserOfError()
+     * if (Not printerError) Then initPrinter()
+     * 
+     * if (reportSelected === ReportType_First) Then PrintReport()
+     * 
+     * 而不要写成
+     * while (done === false) 
+     * while ((a > b) === true)
+     * 
+     * 二、简化复杂的表达式
+     * 
+     * 优化一: 拆分复杂的判断并引入新的布尔变量
+     * 与其写一个庞大的、具有很多项的复杂判断, 还不如把中间结果赋给变量
+     * 
+     * 优化二: 把复杂的表达式做成布尔表达式。
+     * 如果某项判断需要重复做, 或者会搅乱对程序主要流程的理解, 
+     * 那么可以把该判断的代码提取成一个函数, 然后判断该函数的返回值
+     * 
+     * if ((document.AtEndOfStream) && (!inputError) 
+     *      && (MIN_LINES <= lineCount) && (lineCount <= MAX_LINES) 
+     *      && (!ErrorProcessing)) then
+     *   do something or other
+     * End If
+     * 
+     * 当你对这段代码不感兴趣, 可以把它隔离起来
+     * 
+     *     var isXXX = function () {
+     *           var allDataRead = legalLineCount = DocumentIsValid = false;
+     *           allDataRead = (documentToCheck.AtEndOfStream) && (!inputError);
+     *           legalLineCount = (documentToCheck.AtEndOfStream) && (!inputError);
+     *           DocumentIsValid = allDataRead && legalLineCount && (!ErrorProcessing())
+     *
+     *                return DocumentIsValid;
+     *       };
+     * 
+     * 虽然这个判断只用一次, 你可能会认为没有必要把它放入一个子程序中, 不过, 把这个判断放到一个命名良好的函数里能改善可读性, 并让你清楚了解代码在做什么, 因为这样做很有必要
+     * 
+     * 试图去读取程序的主逻辑, 更关心代码
+     * 
+     * 优化三: 编写肯定形式的布尔表达式
+     * if (!statusOK) {
+     *    do...
+     * } else {
+     *    xxx
+     * }
+     * 
+     * if (statusOK) {
+     *    do...
+     * } else {
+     *    xxx
+     * }
+     * 
+     * 依赖布尔表达式
+     * 
+     * 1. 控制结构
+     * 2. 结构化编程
+     */
+
+
+
+    /**
+     * 假设有 10 件商品
+     * 每个商品有一个 id
+     * 一共有 3 条描述
+     * 
+     * 如何建立商品与商品描述的表
+     */
+    // var goodsId = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    // var goodsDesc = ['方便面', '饮料', '蔬菜'];
+
+    // var getNumber2 = function (word) {
+    //     var character = [{ '~': 1 }, { '!': 1 }, { '0': 2 }, { '1': 2 }, { 'a': 3 }, { 'b': 3 }];
+    //     var characterType = ['', 'punc', 'digit', 'letter'];
+
+    //     var i, len, type = '';
+    //     for (i = 0, len = character.length; i < len; i++) {
+    //         var item = character[i];
+    //         if (item[word]) {
+    //             type = characterType[item[word]];
+    //             break;
+    //         }
+    //     }
+    //     return type;
+    // };
+    
+
+    // console.log(getNumber2('a'));
+
+
+
+
+    /**
+     * 索引访问
+     * 
+     * 假设我有一亿条歌曲
+     * 根据某个歌名到数据库里面查找对应的歌曲
+     * 
+     * 方式一: 从头到尾遍历这个歌曲数据库, 最慢
+     * 方式二: 根据 26 个字母, 把歌名按照歌名首字母建立索引, 把总库分成 26 份, 比如: 爱的太迟 [A]
+     * 
+     * 从一份分成26份, 速度提成 26 倍
+     */
+
+    // var firstLetter = ['A', 'B', 'C', 'D'];
+    // var singers = {
+    //     A: [{
+    //         name: '爱的太迟'
+    //     }, {
+    //         name: '爱你爱不完'
+    //     }]
+    // };
+
+    // function searchSinger(name) {
+    //     var arr = singers[name];
+    //     for (var i = 0; i < arr.length; i++) {
+    //         var item = arr[i];
+    //         if (item.name === '爱的太迟') {
+    //             console.log('有值哦');
+    //         }
+    //     }
+    // }
+
+    // searchSinger('A');
+
+    /**
+     * 使用键值
+     */
+    
+
+    /**
+     * 根据用户输入 性别、年龄、value 计算体脂率的等级
+     * 
+     * 定义表 1(男) 0(女)
+     * {
+     *    '1': {
+     *       '30': {
+     *           '10': '偏低',
+     *           '21': '标准',
+     *           '26': '偏高',
+     *           '100': '高',
+     *       },
+     *       '100': {
+     *           '11': '偏低',
+     *           '22': '标准',
+     *           '27': '偏高',
+     *           '100': '高',
+     *       }
+     *    },
+     *    '0': {
+     *       '30': {
+     *           '16': '偏低',
+     *           '24': '标准',
+     *           '30': '偏高',
+     *           '100': '高',
+     *       },
+     *       '100': {
+     *           '19': '偏低',
+     *           '27': '标准',
+     *           '30': '偏高',
+     *           '100': '高',
+     *       },
+     *    }
+     * }
+     * 
+     * 访问表
+     * var man = table['1']
+     * var woman = table['0']
+     * 
+     * 获取 man 的 keys
+     * for keys
+     *   if age < keys[i]
+     *       var values = table['1'][keys[i]]
+     *       for values.keys
+     *           if value < keys[j]
+     *              level = values[keys[j]]
+     *              break
+     *       break;
+     * 
+     * 返回 level
+     * 
+     */
+    
+    // 验证是否是空值
+    // var isEmptyValue = function (options) {
+    //     return (!options.gender && options.gender != 0) || (!options.age) || (!options.value)
+    // };
+
+    // // 获取蛋白质
+    // var getProteincontent = function (options) {
+    //     if (!options.value) return '1';
+    //     var table = tableData.proteincontentTable;
+    //     var gender = options.gender;
+    //     var value = Number(options.value);
+    //     var currentObject = table[gender];
+    //     var keys = Object.keys(currentObject);
+    //     var level = '偏高';
+
+    //     for (var i = 0; i < keys.length; i++) {
+    //         var item = keys[i];
+    //         if (value < item) {
+    //             level = currentObject[item];
+    //             break;
+    //         }
+    //     }
+
+    //     return level;
+    // };
+
+    // // 获取骨重
+    // var getLevelForBoneWeight = function (options) {
+    //     if (!options.value) return '';
+
+    //     var table = tableData.boneWeightTable;
+    //     var weight = Number(options.weight);
+    //     var value = Number(options.value);
+    //     var gender = options.gender;
+    //     var level = '高';
+    //     var weightKeys = Object.keys(table[gender]);
+    //     var i, j, weightKey, valueKey, valueKeys;
+
+    //     for (i = 0; i < weightKeys.length; i++) {
+    //         weightKey = weightKeys[i];
+    //         if (weight < weightKey) {
+    //             valueKeys = Object.keys(table[gender][weightKey]);
+    //             for (j = 0; j < valueKeys.length; j++) {
+    //                 valueKey = valueKeys[j];
+    //                 if (value < valueKey) {
+    //                     level = table[gender][weightKey][valueKey];
+    //                     break;
+    //                 }
+    //             }
+    //             break;
+    //         }
+    //     }
+    //     return level;
+    // };
+
+    // // 内脏脂肪指数
+    // var getVaim = function (options) {
+    //     if (!options.value) return '1';
+    //     var table = tableData.vaimTable;
+    //     var value = Number(options.value);
+    //     var keys = Object.keys(table);
+
+    //     for (var i = 0; i < keys.length; i++) {
+    //         var item = keys[i];
+    //         if (value < item) {
+    //             level = table[item];
+    //             break;
+    //         }
+    //     }
+
+    //     return level;
+    // };
+
+    // // 获取水份表
+    // var getWatercontent = function (options) {
+    //     if (!options.value) return '1';
+    //     var table = tableData.watercontentTable;
+    //     var gender = options.gender;
+    //     var value = Number(options.value);
+    //     var currentObject = table[gender];
+    //     var keys = Object.keys(currentObject);
+    //     var level = '偏高';
+
+    //     for (var i = 0; i < keys.length; i++) {
+    //         var item = keys[i];
+    //         if (value < item) {
+    //             level = currentObject[item];
+    //             break;
+    //         }
+    //     }
+
+    //     return level;
+    // };
+
+    /**
+     * 根据性别、value 获取肌肉率的等级
+     * 
+     * if ((!gender && gender != 0) || (!value))  return '';
+     * 
+     * 定义表
+     * {
+     *    '0': {
+     *        '30': '偏低',
+     *        '50': '标准',
+     *        '100': '偏高'
+     *     },
+     *    '1': {
+     *        '40': '偏低',
+     *        '60': '标准',
+     *        '100': '偏高'
+     *     },
+     * }
+     * 
+     * 访问表
+     * table[gender] 获取用户传入的性别, 准备去选取哪个表
+     * 获取 table[gender] 的所有 keys 值
+     * 
+     * 遍历 keys 值 和 当前值进行比较, 如果条件成立, 则获取当前的等级, 并退出循环
+     * 
+     */
+    
+    /**
+     * 
+     * @param {Object} options 
+     * options.value:  当前的值
+     * options.gender: 性别
+     */
+    // var getMeatratebase = function (options) {
+    //     if (!options.value) return '1';
+    //     var table = tableData.meatrateBaseTable;
+    //     var gender = options.gender;
+    //     var value = Number(options.value);
+    //     var currentObject = table[gender];
+    //     var keys = Object.keys(currentObject);
+    //     var level = '偏高';
+
+    //     for (var i = 0; i < keys.length; i++) {
+    //         var item = keys[i];
+    //         if (value < item) {
+    //             level = currentObject[item];
+    //             break;
+    //         }
+    //     }
+
+    //     return level;
+    // };
+
+    // 测试值
+    // ;(function() {
+    //     for (var i = 0; i < 100; i += 1) {
+    //         console.log(i + ':' + getProteincontent({ gender: '0', value: i }));
+    //     }
+    // })();
+
+    // 测试 falsy 值
+    // ;(function() {
+    //     var falsy = [null, false, NaN, undefined, '', "", 0];
+
+    //     for (var i = 0; i < falsy.length; i++) {
+    //         console.log(getMeatratebase({ gender: falsy[i], value: 10 }));
+    //     }
+    // })();
+
+    /**
+     * 根据性别、年龄、value 计算基础代谢率
+     */
+    // var getBaselmetabolicrate = function (options) {
+    //     if (isEmptyValue(options)) { return ''; }
+    //     if (!options.weight) { return ''; }
+
+    //     var gender = options.gender;
+    //     var age    = options.age;
+    //     var weight = options.weight;
+    //     var value = options.value;
+    //     var level = '未达标';
+        
+
+    //     // if (gender === '1') {
+    //     //     if (age <= 2) {
+    //     //         if (value >= (60.9*weight-54)) {
+    //     //             return '达标';
+    //     //         }
+    //     //         if (value < (60.9*weight-54)) {
+    //     //             return '未达标';
+    //     //         }
+    //     //     } else if (age <= 9) {
+
+    //     //     } else if (age <= 17) {
+
+    //     //     } else if (age <= 29) {
+
+    //     //     } else {
+
+    //     //     }
+    //     // } else {
+
+    //     // }
+    // }
+
+    /**
+     * 计算 BMI
+     * @param {object} options 
+     * options.value: BMI值
+     */
+    // var getLevelForBMI = function (options) {
+    //     if (!options.value) { return ''; }
+
+    //     var rangeLimit = [18.5, 23.9, 27.9, 100.0];
+    //     var values = ['偏低', '标准', '超重', '肥胖'];
+    //     var value = options.value;
+    //     var level = '高';
+    //     var i, item;
+        
+    //     for (i = 0; i < rangeLimit.length; i++) {
+    //         item = rangeLimit[i];
+    //         if (value < item) {
+    //             level = values[i];
+    //             break;
+    //         }
+    //     }
+
+    //     return level;
+    // };
+
+    // 测试 0.1-100: 测试通过
+    // ;(function() {
+    //     for (var i = 0.1; i < 100; i += 0.1) {
+    //         console.log(i + ':' + getLevelForBMI({ value: i }));
+    //     }
+    // })();
+
+    // 测试 false 值: 测试通过
+    // ;(function() {
+    //     var falsy = [null, false, NaN, undefined, '', "", 0];
+
+    //     var i, len;
+    //     for (i = 0, len = falsy.length; i < len; i++) {
+    //         console.log(getLevelForBMI({ value: falsy[i] })); 
+    //     }
+    // })();
+
+    /**
+     * 计算体脂率
+     * @param {Object} options 
+     * options.gender: 性别
+     * options.age:    年龄
+     * options.value:  体脂值
+     */
+    // var getLevelForBodyfatrate = function(options) {
+    //     if (isEmptyValue(options)) return '';
+        
+    //     var table = tableData.bodyTable;
+    //     var age = Number(options.age);
+    //     var value = Number(options.value);
+    //     var gender = options.gender;
+    //     var level = '高';
+    //     var ageKeys = Object.keys(table[gender]);
+    //     var i, j, ageKey, valueKey, valueKeys;
+
+    //     for (i = 0; i < ageKeys.length; i++) {
+    //         ageKey = ageKeys[i];
+    //         if (age < ageKey) {
+    //             valueKeys = Object.keys(table[gender][ageKey]);
+    //             for (j = 0; j < valueKeys.length; j++) {
+    //                 valueKey = valueKeys[j];
+    //                 if (value < valueKey) {
+    //                     level = table[gender][ageKey][valueKey];
+    //                     break;
+    //                 }
+    //             } 
+    //             break;
+    //         }
+    //     }
+    //     return level;
+    // };
+
+    // 测试性别为女、年龄 >= 30, value = 1-100 的值
+    // ; (function () {
+    //     var i, len;
+    //     for (i = 0, len = 100; i < len; i++) {
+    //         console.log(i + ':' + getLevelForBodyfatrate({ gender: '0', age: '30', value: i }));
+    //     }
+    // })();
+
+    // 测试性别为女、年龄 < 30, value = 1-100 的值
+    // ; (function () {
+    //     var i, len;
+    //     for (i = 0, len = 100; i < len; i++) {
+    //         console.log(i + ':' + getLevelForBodyfatrate({ gender: '0', age: '29', value: i }));
+    //     }
+    // })();
+
+    // 测试性别为男、年龄 >= 30, value = 1-100 的值
+    // ; (function () {
+    //     var i, len;
+    //     for (i = 0, len = 100; i < len; i++) {
+    //         console.log(i + ':' + getLevelForBodyfatrate({ gender: '1', age: '30', value: i }));
+    //     }
+    // })();
+
+    // 测试性别为男、年龄 < 30, value = 1-100 的值
+    // ;(function() {
+    //     var i, len;
+    //     for (i = 0, len = 100; i < len; i++) {
+    //         console.log(i + ':' + getLevelForBodyfatrate({ gender: '1', age: '29', value: i })); 
+    //     }
+    // })();
+
+    // 测试空值 成功
+    // ;(function() {
+    //     var falsy = [null, false, NaN, undefined, '', "", 0];
+
+    //     var i, len;
+    //     for (i = 0, len = falsy.length; i < len; i++) {
+    //         console.log(getLevelForBodyfatrate({ gender: falsy[i], age: falsy[i], value: falsy[i] }));
+    //     }
+    // })();
+
+    
+
+    /**
+     * 阶梯结构, 对不同的数据范围有效，而不是针对不同的数据点。
+     * 阶梯方法通过确定每项命中的阶梯层次确定其归类，它命中的台阶，确定其类属
+     * 数据转换函数?
+     * 
+     * 阶梯使用步骤
+     * 1. 每个区间上限写入表
+     * 2. 然后写一个循环, 按照各区间的上限来检查分数
+     * 3. 当分数第一次超过某个区间的上限时, 你就知道相应的等级了
+     * 
+     * 难点在于怎么解决, 范围的端点
+     * >= 90
+     * <  50 
+     * 怎么优雅的表达出来
+     * 
+     * 案例:
+     * >=90 A
+     * < 90 B
+     * < 75 C
+     * < 65 D
+     * < 50 F
+     */
+
+    // var getLevelForScore = function (score) {
+
+    //     var table = {
+    //         '50': 'F',
+    //         '65': 'D',
+    //         '75': 'C',
+    //         '90': 'B'
+    //     };
+
+    //     var keys = Object.keys(table);
+    //     var i, len, item, level = '';
+    //     for (i = 0, len = keys.length; i < len; i++) {
+    //         item = keys[i];
+    //         if (score < item) {
+    //             level = table[item];
+    //             break;
+    //         }
+    //         if (score >= 90) {
+    //             level = 'A';
+    //             break;
+    //         }
+    //     }
+
+    //     return level;
+    // };
+
+    //  测试 0-100之间的分数
+    // for (var i = 0; i < 101; i++) {
+    //     console.log( i + ':' + getLevelForScore(i));
+    // }
+
+    
+
+    /**
+     * 计算体脂率, 根据用户输入的 性别、年龄 判断体脂的等级
+     * 
+     * 定义表: 
+     * 阶段访问
+     * 
+     * 访问表:
+     */
+
+    // var rate = [[[1,2,3], [1,2,3]], [[1,2,3], [1,2,3]]];
+
+    // for (var gender = 0; gender < rate.length; gender++) {
+    //     console.log('Gender: ' + gender);
+    //     var genderRate = rate[gender];
+    //     for (var smoke = 0; smoke < genderRate.length; smoke++) {
+    //         console.log('Smoke:' + smoke);
+    //         var ageRate = genderRate[smoke];
+    //         for (var age = 0; age < ageRate.length; age++) {
+    //             console.log(ageRate[age]);
+    //         }            
+    //     }
+    // }
+
+    // console.log(rate);
+
+
+    /**
+     * 保险费率问题, 根据 性别、结婚、吸烟、年龄判断保险费率
+     */
+
+    /**
+     * 根据用户输入的月份, 查找当前月的天数 [1-12]
+     * 
+     * 
+     * 定义表: 用数组定义表 month [0, 31....]
+     * 访问表: 用月份直接访问表 month[1], 直接访问 1 月份
+     * 
+     */
+
+    /**
+     * 根据用户输入 inputChar 获取用户输入字符类型
+     * 已经知字符类型有: [number, pup, letters]
+     * 
+     * 1. 构建一个数字 [0-9] 的表
+     * 2. 构建一个 [a-zA-Z] 的表
+     * 3. 构建一个 [~!@#$%^&*(){}|":?><] 的表
+     * 
+     * 定义表对象如下: table, 对象数据结构定义的表
+     * {
+     *    '0': 'number',
+     *    '1': 'number',
+     *    'a': 'letters',
+     *    '?': 'pup'
+     * }
+     * 
+     * 访问表对象如下
+     * 
+     * table['0'] => 类型
+     * 
+     */
+
+
+    // var MAN = 1;
+    // var WOMAN = 0;
     /**
      * gender: 1(男)
      * gender: 0(女)
      * 
      * 根据用户传入的 性别、年龄区间 计算出体脂率
      * 
-     * 如果 gender 为 falsy 值, 并且不包括 0, 那么返回 ""
-     * 如果 age 为 falsy 值, 并且 age < 0 || age > 200, 那么返回 ""
-     * 如果 value 为 falsy 值, 并且 value < 0, 那么返回 ""
+     * if 性别为 falsy 值, 并且不为 0, then return ''
+     * if 年龄为 falsy 值, 或者 年龄 < 0 || 年龄 >= 200, then return ''
+     * if value 为 falsy 值, 或者 value < 0, then return ''
+     * 
+     * if 性别为 男
+     *    if 年龄 < 30
+     *       ...
+     *    else if 年龄 >= 30
+     *       ...
+     * 
+     * if 性别为 女
+     *    if 年龄 < 30
+     *        ...
+     *    else if 年龄 >= 30
+     *        ...
+     * 
+     * 性别为男, 年龄 < 30 的表
+     * [0.1, 10)   : 偏低
+     * [10, 21)    : 标准
+     * [21, 26)    : 偏高
+     * value >= 26 : 高
+     * 
+     * 性别为男, 年龄 >= 30 的表
+     * [0.1, 11)   : 偏低
+     * [10, 22)    : 标准
+     * [21, 27)    : 偏高
+     * value >= 27 : 高
+     * 
+     * 性别为女, 年龄 < 30 的表
+     * [0.1, 16)   : 偏低
+     * [10, 24)    : 标准
+     * [21, 30)    : 偏高
+     * value >= 30 : 高
      * 
      * 
+     * 性别为女, 年龄 >= 30 的表
+     * [0.1, 19)   : 偏低
+     * [10, 27)    : 标准
+     * [21, 30)    : 偏高
+     * value >= 30 : 高
      * 
      */
 
     // value, gender, age
-    var getLevelForBodyfatrate = function (options) {};
+    // var getLevelForBodyfatrate = function (options) {
+    //     options = options || {};
+    //     var gender = options.gender, age = options.age, value = options.value;
+
+    //     if (!gender && gender != 0 ) return '';
+    //     if (!age || (age < 0 || age > 200)) return '';
+    //     if (!value || value < 0) return '';
+
+    //     var getLevel = function(objectTable, max) {
+    //         var keys = Object.keys(objectTable);
+    //         var level = '';
+    //         for (var i = 0; i < keys.length; i++) {
+    //             var item = keys[i];
+    //             if (value < item) {
+    //                 level = objectTable[item];
+    //                 break;
+    //             }
+    //         }
+    //         if (value >= max) {
+    //             level = '高';
+    //         }
+            
+    //         // console.log(value + ':' + level);
+    //         return level;
+    //     };
+            
+    //     var table = {
+    //         '1': {
+    //             '10': '偏低',
+    //             '21': '标准',
+    //             '26': '偏高'
+    //         },
+    //         '2': {
+    //             '11': '偏低',
+    //             '22': '标准',
+    //             '27': '偏高'
+    //         },
+    //         '3': {
+    //             '16': '偏低',
+    //             '24': '标准',
+    //             '30': '偏高'
+    //         },
+    //         '4': {
+    //             '19': '偏低',
+    //             '27': '标准',
+    //             '30': '偏高'
+    //         }
+    //     };
+
+    //     if (gender == MAN) {
+    //         if (age < 30) {
+    //             return getLevel(table['1'], 26);
+    //         } else if (age >= 30) {
+    //             return getLevel(table['2'], 27);
+    //         }
+    //     }
+
+    //     if (gender == WOMAN) {
+    //         if (age < 30) {
+    //             return getLevel(table['3'], 30);
+    //         } else if (age >= 30) {
+    //             return getLevel(table['4'], 30);
+    //         }
+    //     }
+    // };
+
+    // 测试性别男
+    (function() {
+        // 测试女 30 岁以上
+        // for (var i = 0.1; i < 31; i += 0.1) {
+        //     console.log(getLevelForBodyfatrate({ gender: 0, age: 30, value: i })); 
+        // }
+
+        // 测试女 30 岁以下
+        // for (var i = 0.1; i < 31; i += 0.1) {
+        //     console.log(getLevelForBodyfatrate({ gender: 0, age: 29, value: i })); 
+        // }
+
+        // 测试男30岁以上
+        // for (var i = 0.1; i < 28; i += 0.1) {
+        //     console.log(getLevelForBodyfatrate({ gender: 1, age: 30, value: i })); 
+        // }
+        // 测试男 30 岁以下
+        // for (var i = 0.1; i < 27; i += 0.1) {
+        //     console.log(getLevelForBodyfatrate({ gender: 1, age: 10, value: i })); 
+        // }
+    })();
+
+    // getLevelForBodyfatrate({ gender: 1, age: 10, value: 10 })
+
+    // falsy 测试通过
+    // var falsy = [null, false, NaN, undefined, '', "", 0];
+    // var i, len;
+    // for (i = 0, len = falsy.length; i < len; i++) {
+    //     console.log(getLevelForBodyfatrate({ gender: 1, age: 0, value: 0 })); 
+    // }
+    
     
 
     /**
@@ -577,20 +1345,20 @@
 
 
 
-    const MAN = '1';
-    const WOMAN = '2';
-    const FLAT = '偏低';
-    const STANDARD = '标准';
-    const HIGH_SIDE = '偏高';
-    const HIGH = '高';
-    const OVERLOAD = '超重';
-    const FAT = '肥胖';
-    const OK = '达标';
-    const NO = '未达标';
-    const ERROR_VALUE = '值参数异常';
-    const ERROR_GENDER = '性别参数异常';
-    const ERROR_AGE = '年龄参数异常';
-    const ERROR_M = '体重参数异常';
+    // const MAN = '1';
+    // const WOMAN = '2';
+    // const FLAT = '偏低';
+    // const STANDARD = '标准';
+    // const HIGH_SIDE = '偏高';
+    // const HIGH = '高';
+    // const OVERLOAD = '超重';
+    // const FAT = '肥胖';
+    // const OK = '达标';
+    // const NO = '未达标';
+    // const ERROR_VALUE = '值参数异常';
+    // const ERROR_GENDER = '性别参数异常';
+    // const ERROR_AGE = '年龄参数异常';
+    // const ERROR_M = '体重参数异常';
 
     var getAge = function (age) {
         return Math.min(66, age);

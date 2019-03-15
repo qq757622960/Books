@@ -6,12 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>表驱动法</title>
     <style>
-        div { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border: 1px dotted red; border-radius: 50%; color: red; font-weight: 300; }
     </style>
 </head>
 <body>
-    <p>表驱动法</p>
-    <div>YS</div>
-    <script src="./index.js"></script>
+
+    <button id="showNotice">showNotice</button>
+    <img src="./apple-touch-icon.png" alt="">
+    <script src="./data.js"></script>
+    <script src="./table.js"></script>
+    <script>
+        var notice = function (data) {
+            data = data || {};
+            if (window.Notification) {
+                if (Notification.permission === 'granted') {
+                    var notification = new Notification(data.title || '', {
+                        body: data.content || ''
+                        , icon: data.avatar || 'http://tp2.sinaimg.cn/5488749285/50/5719808192/1'
+                    });
+                } else {
+                    Notification.requestPermission();
+                };
+            }
+        };
+
+        var el = document.querySelector('#showNotice');
+        el.addEventListener('click', function(event) {
+            notice({
+                content: ' 消息提醒',
+                icon: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1552558805525&di=585b93777d02729f630b695af439bf85&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ac9a5b0e7d96a8012043d83ee3ab.JPG%402o.jpg'
+            });
+        }, false);
+    </script>
 </body>
 </html>
